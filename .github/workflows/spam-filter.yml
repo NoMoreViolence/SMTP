@@ -22,11 +22,11 @@ jobs:
       - name: Build
         run: yarn build
       - name: Create zip file
-      - uses: montudor/action-zip@v0.1.0
+        uses: montudor/action-zip@v0.1.0
         with:
           args: zip -qq -r ./build.zip ./dist
       - name: Deploy Lambda function
-      - uses: appleboy/lambda-action@v0.0.4
+        uses: appleboy/lambda-action@v0.0.4
         with:
           aws_region: ${{ secrets.REGION }}
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
