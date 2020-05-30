@@ -17,18 +17,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Install dependencies
         run: yarn install
-
       - name: Build
         run: yarn build
-
       - name: Create zip file
       - uses: montudor/action-zip@v0.1.0
         with:
           args: zip -qq -r ./build.zip ./dist
-
       - name: Deploy Lambda function
       - uses: appleboy/lambda-action@v0.0.4
         with:
