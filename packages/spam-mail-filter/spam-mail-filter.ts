@@ -21,9 +21,9 @@ export function spamMailFilter(event: any, context: Context, callback: Callback)
       });
     }
 
-    callback(null, null);
+    return callback(null, null);
   } catch (e) {
-    callback(null, {
+    return callback(null, {
       statusCode: HttpStatusCode.OK,
       disposition: 'STOP_RULE_SET',
     });
