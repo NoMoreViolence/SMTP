@@ -1,5 +1,5 @@
-import { Context, Callback } from 'aws-lambda';
-import { HttpStatusCode } from './constants';
+import { Callback, Context } from 'aws-lambda';
+import { HttpStatusCode } from '../constants';
 
 export function spamMailFilter(event: any, context: Context, callback: Callback) {
   try {
