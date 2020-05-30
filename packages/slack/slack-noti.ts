@@ -5,10 +5,11 @@ if (!token) {
   throw new Error('slack token needed.');
 }
 
-import { Context } from 'aws-lambda';
+import { Context, Callback } from 'aws-lambda';
 import aws from 'aws-sdk';
 import dayjs from 'dayjs';
 import request from 'request';
+import { HttpStatusCode } from 'packages/constants';
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region });
 
 function postCallback(err: Error, httpResponse: any, body: any) {
@@ -91,13 +92,17 @@ function notifyReceived(data: any) {
     });
 }
 
-export function slackNoti(event: any, context: Context) {
+export function slackNoti(event: any, context: Context, callback: Callback) {
   if (!event.Records) {
-    return;
+    return callback(null, {
+      statusCode: HttpStatusCode.BAD_REQUEST,
+    });
   }
   event.Records.forEach((record: any) => {
     if (!record.Sns) {
-      return;
+      return callback(null, {
+        statusCode: HttpStatusCode.BAD_REQUEST,
+      });
     }
     var messageJson: any = false;
     try {
@@ -110,7 +115,9 @@ export function slackNoti(event: any, context: Context) {
       }
     } catch (err) {
       request.post(postInfoUpload('SNS raw message', JSON.stringify(record.Sns, null, 2)), postCallback);
-      return;
+      return callback(null, {
+        statusCode: HttpStatusCode.OK,
+      });
     }
 
     try {
@@ -130,8 +137,15 @@ export function slackNoti(event: any, context: Context) {
         default:
           throw new Error('Unknown type.');
       }
+
+      return callback(null, {
+        statusCode: HttpStatusCode.OK,
+      });
     } catch (err) {
       request.post(postInfoUpload('SNS message', JSON.stringify(messageJson, null, 2)), postCallback);
+      return callback(null, {
+        statusCode: HttpStatusCode.OK,
+      });
     }
   });
 }
