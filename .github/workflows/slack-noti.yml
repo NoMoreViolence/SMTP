@@ -1,0 +1,35 @@
+name: SlackNoti
+
+on:
+  push:
+    branches:
+      - lambda/slack-noti
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Create zip file
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./build.zip ./dist
+      - name: Deploy Lambda function
+        uses: appleboy/lambda-action@v0.0.4
+        with:
+          aws_region: ${{ secrets.REGION }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          function_name: ${{ secrets.SLACK_NOTI_NAME }}
+          zip_file: ${{ secrets.ZIP_NAME }}
