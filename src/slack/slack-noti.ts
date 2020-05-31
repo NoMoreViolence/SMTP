@@ -28,13 +28,27 @@ export async function slackNoti(event: any, context: Context, callback: Callback
     },
     async function (err, data) {
       if (err) {
+        await webhook.send(`
+          S3에서 데이터를 받아오지 못했습니다.
+          로그 정보:
+            bucketName: ${bucketName}
+            messageId: ${messageId}
+        `);
         callback(err);
       } else {
-        const emailMimeNode = parse(data.Body);
-        await webhook.send('테스트 메일임');
-        await webhook.send(eventObject);
-        await webhook.send(emailMimeNode);
-        callback(null, null);
+        await webhook.send(`S3에서 데이터를 불러오는 데 성공했습니다.`);
+        await webhook.send(data.Body?.toString() ?? '');
+
+        try {
+          const emailMimeNode = parse(data.Body);
+          await webhook.send(`모든 작업 성공`);
+          await webhook.send(eventObject);
+          await webhook.send(emailMimeNode);
+          callback(null, null);
+        } catch (e) {
+          await webhook.send(`mime parse failed`);
+          callback(null, null);
+        }
       }
     }
   );
