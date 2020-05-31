@@ -28,7 +28,7 @@ export async function slackNoti(event: any, context: Context, callback: Callback
     },
     async function (err, data) {
       if (err) {
-        callback(null, null);
+        callback(err);
       } else {
         const emailMimeNode = parse(data.Body);
         await webhook.send('테스트 메일임');
