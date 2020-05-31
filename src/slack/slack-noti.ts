@@ -5,11 +5,11 @@ if (!token) {
   throw new Error('slack token needed.');
 }
 
-import { Context, Callback } from 'aws-lambda';
+import { Callback, Context } from 'aws-lambda';
 import aws from 'aws-sdk';
 import dayjs from 'dayjs';
 import request from 'request';
-import { HttpStatusCode } from 'packages/constants';
+import { HttpStatusCode } from './../constants';
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region });
 
 function postCallback(err: Error, httpResponse: any, body: any) {
