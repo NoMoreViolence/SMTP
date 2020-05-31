@@ -16,7 +16,6 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
     channel: channel,
   });
 
-  const eventObject = JSON.stringify(event.Records[0].ses.mail);
   const { messageId, timestamp, source } = event.Records[0].ses.mail;
 
   webhook.send('메일 송 수신 테스트 시작');
@@ -38,16 +37,13 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
         callback(err);
       } else {
         webhook.send(`S3에서 데이터를 불러오는 데 성공했습니다.`);
-        webhook.send(data.Body?.toString() ?? '');
-
         try {
           const emailMimeNode = parse(data.Body);
-          webhook.send(`모든 작업 성공`);
-          webhook.send(eventObject);
+          webhook.send(`모든 작업 성공 :)`);
           webhook.send(emailMimeNode);
           callback(null, null);
         } catch (e) {
-          webhook.send(`mime parse failed`);
+          webhook.send(`mime 파일을 parse 하는 데 실패해서 메시지를 전송할 수 없습니다. :)`);
           callback(null, null);
         }
       }
