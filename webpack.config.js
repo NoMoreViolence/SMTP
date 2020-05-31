@@ -6,7 +6,8 @@ const config = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'main.js',
+    libraryTarget: 'commonjs',
   },
   node: {
     fs: 'empty',
@@ -14,7 +15,7 @@ const config = {
     tls: 'empty',
   },
   module: {
-    rules: [{ test: /\.ts$/, use: 'awesome-typescript-loader' }],
+    rules: [{ test: /\.ts$/, use: 'ts-loader' }],
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],

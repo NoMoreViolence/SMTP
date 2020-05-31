@@ -24,7 +24,7 @@ jobs:
       - name: Create zip file
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r ./build.zip ./dist
+          args: zip -qq -r ./build.zip ./dist/main.js
       - name: Deploy Lambda function
         uses: appleboy/lambda-action@v0.0.4
         with:
