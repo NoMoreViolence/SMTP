@@ -1,6 +1,7 @@
 const path = require('path');
 
 const config = {
+  target: 'node',
   mode: 'production',
   entry: './src/index.ts',
   output: {
