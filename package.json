@@ -26,12 +26,14 @@
   "dependencies": {
     "@slack/client": "^5.0.2",
     "aws-lambda": "^1.0.6",
+    "bufferutil": "^4.0.1",
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "lerna": "^3.22.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
     "typescript": "^3.9.3",
+    "utf-8-validate": "^5.0.2",
     "webpack": "^4.43.0",
     "winston": "^3.2.1",
     "winston-cloudwatch": "^2.3.2"

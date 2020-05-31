@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import './spam-mail-filter';
-import './slack';
+
+export { spamMailFilter } from './spam-mail-filter';
+export { slackNoti } from './slack';
