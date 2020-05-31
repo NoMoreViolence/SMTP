@@ -40,6 +40,7 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
         try {
           const emailMimeNode = parse(data.Body);
           webhook.send(`모든 작업 성공 :)`);
+          webhook.send(data.Body?.toString() ?? '');
           webhook.send(emailMimeNode);
           callback(null, null);
         } catch (e) {
