@@ -1,6 +1,6 @@
 import { IncomingWebhook } from '@slack/client';
 import { Callback, Context } from 'aws-lambda';
-import aws from 'aws-sdk';
+import * as aws from 'aws-sdk';
 import parse from 'emailjs-mime-parser';
 
 const bucketName = process.env.S3_BUCKET || 'wrong_bucket';
@@ -20,6 +20,7 @@ export async function slackNoti(event: any, context: Context, callback: Callback
   const { messageId, timestamp, source } = event.Records[0].ses.mail;
 
   await webhook.send('메일 송 수신 테스트 시작');
+  await webhook.send(messageId);
 
   s3.getObject(
     {
