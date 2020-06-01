@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.51",
+    "@types/js-base64": "^2.3.1",
     "@types/node": "^14.0.6",
     "@types/request": "^2.48.5",
     "awesome-typescript-loader": "^5.2.1",
@@ -32,6 +33,7 @@
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "emailjs-mime-parser": "^2.0.7",
+    "js-base64": "^2.5.2",
     "lerna": "^3.22.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
