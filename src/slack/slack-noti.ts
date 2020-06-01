@@ -16,7 +16,7 @@ export function slackNoti(event: any, _context: Context, callback: Callback) {
   webhook.send(
     `[새로운 이메일이 도착했습니다.] ${dayjs(new Date(timestamp).toISOString()).format(
       'YYYY.MM.DD hh.mm A (+9)'
-    )}\n이메일 링크: <a href="${mailUrl}" download>Hello</a>\n링크를 클릭해 메일을 다운받으신 후, 메일 확장자를 .eml로 변경하게 되면 메일을 읽을 수 있게 됩니다.`
+    )}\n<${mailUrl}|이메일 링크>\n를 클릭해 메일을 다운받으신 후, 메일 확장자를 .eml로 변경하게 되면 메일을 읽을 수 있게 됩니다.`
   );
 
   callback(null, null);
