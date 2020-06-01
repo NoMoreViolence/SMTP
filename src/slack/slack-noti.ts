@@ -40,7 +40,7 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
         try {
           const emailMimeNode = parse(data.Body);
           webhook.send(`모든 작업 성공 :)`);
-          webhook.send(emailMimeNode.content.toString());
+          webhook.send(emailMimeNode.bodyStructure);
           return callback(null, null);
         } catch (e) {
           webhook.send(`mime 파일을 parse 하는 데 실패해서 메시지를 전송할 수 없습니다. :)`);
