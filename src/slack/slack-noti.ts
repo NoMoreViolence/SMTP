@@ -10,7 +10,7 @@ export function slackNoti(event: any, _context: Context, callback: Callback) {
     channel: channel,
   });
 
-  const { messageId, timestamp, source } = event.Records[0].ses.mail;
+  const { messageId, timestamp } = event.Records[0].ses.mail;
   const mailUrl = `${process.env.BUCKET_URL}${messageId}`;
 
   webhook.send(
