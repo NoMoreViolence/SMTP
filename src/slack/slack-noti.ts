@@ -38,11 +38,11 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
       } else {
         webhook.send(`S3에서 데이터를 불러오는 데 성공했습니다.`);
         try {
-          const encoded_message_body_tmp = (data.Body as string).split('\r\n');
-          const encoded_message_body = encoded_message_body_tmp.join('').trim();
-          const decoded_message_body = Base64.decode(encoded_message_body);
           webhook.send(`모든 작업 성공 :)`);
-          webhook.send(decoded_message_body);
+          webhook.send(JSON.stringify(data.Body?.toString()));
+          webhook.send('-----------------------------------');
+          webhook.send('-----------------------------------');
+          webhook.send(JSON.parse(data.Body as string));
 
           return callback(null, null);
         } catch (e) {
