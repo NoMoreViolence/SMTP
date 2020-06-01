@@ -34,20 +34,20 @@ export function slackNoti(event: any, context: Context, callback: Callback) {
             bucketName: ${bucketName}
             messageId: ${messageId}
         `);
-        callback(err);
+        return callback(err);
       } else {
         webhook.send(`S3에서 데이터를 불러오는 데 성공했습니다.`);
         try {
           const emailMimeNode = parse(data.Body);
           webhook.send(`모든 작업 성공 :)`);
-          webhook.send(data.Body?.toString() ?? '');
-          webhook.send(emailMimeNode);
-          callback(null, null);
+          webhook.send(emailMimeNode.content.toString());
+          return callback(null, null);
         } catch (e) {
           webhook.send(`mime 파일을 parse 하는 데 실패해서 메시지를 전송할 수 없습니다. :)`);
-          callback(null, null);
+          return callback(e);
         }
       }
     }
   );
+  return;
 }
