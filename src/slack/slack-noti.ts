@@ -5,8 +5,8 @@ import aws from 'aws-sdk';
 import dayjs from 'dayjs';
 
 const signingSecret = process.env.SIGNING_SECRET || 'mkit';
-const bucket = process.env.BUCKET || 'justhis';
-const accessKeyId = process.env.AWS_ACCESS_KEY || 'giriboy';
+const bucket = process.env.S3_BUCKET_ID || 'justhis';
+const accessKeyId = process.env.ACCESS_KEY_ID || 'giriboy';
 const secretAccessKey = process.env.SECRET_ACCESS_KEY || 'nafla';
 const slackBotToken = process.env.SLACK_BOT_TOKEN || '2pac';
 const channel = process.env.SLACK_CHANNEL || '#random';
